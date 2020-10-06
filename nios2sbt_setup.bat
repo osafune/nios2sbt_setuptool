@@ -15,8 +15,9 @@ wsl %SH_NAME%
 
 
 rem ***** Eclipse setup *****
-echo Installing eclipse...
-
+set MARS2_ZIP=eclipse-cpp-mars-2-win32-x86_64.zip
+set MARS2_URI=https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/2/%MARS2_ZIP%
+set MARS2_NAME=%SCRIPT_DRIVE%%SCRIPT_PATH%%MARS2_ZIP%
 set MARS2_PATH=%SOPC_KIT_NIOS2%\bin
 set PLUGINS_NAME=%MARS2_PATH%\eclipse_nios2_plugins.zip
 
@@ -34,10 +35,13 @@ if exist "%MARS2_PATH%\eclipse_nios2\" (
 	exit
 )
 
-set MARS2_NAME=%SCRIPT_DRIVE%%SCRIPT_PATH%eclipse-cpp-mars-2-win32-x86_64.zip
-powershell expand-archive -Path "%MARS2_NAME%" -Destination "%MARS2_PATH%" -Force
+echo Downloading CDT package...
+powershell Invoke-WebRequest "%MARS2_URI%" -OutFile "%MARS2_NAME%"
+
+echo Installing eclipse...
+powershell Expand-Archive -Path "%MARS2_NAME%" -DestinationPath "%MARS2_PATH%" -Force
 rename "%MARS2_PATH%\eclipse" eclipse_nios2
-powershell expand-archive -Path "%PLUGINS_NAME%" -Destination "%MARS2_PATH%" -Force
+powershell Expand-Archive -Path "%PLUGINS_NAME%" -DestinationPath "%MARS2_PATH%" -Force
 
 
 echo Installation finished.

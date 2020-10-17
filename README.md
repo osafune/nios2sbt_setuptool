@@ -27,6 +27,25 @@ WSL側のセットアップでパスワード入力を求められます。2.で
 PCに複数のバージョンをインストールしている場合は、実行前に `SOPC_KIT_NIOS2` のパスがインストールしたQuartusPrimeのフォルダになっているか確認してください。
 
 
+SBTの不具合
+----------
+2020年6月以降(?)のWindowsUpdateを適用した環境ではSBTのビルドが通らなくなる問題が確認されています。今のところ下記の修正で対策可能です。  
+1. アプリケーションフォルダのMakefileの326行付近
+```
+APP_LDFLAGS += -msys-lib=$(call adjust-path-mixed,$(SYS_LIB))
+　↓
+APP_LDFLAGS += -msys-lib=$(SYS_LIB)
+```
+2. 同じく132行付近
+```
+BUILD_PRE_PROCESS :=
+　↓
+BUILD_PRE_PROCESS := touch $(ELF).srec
+```
+3. BSP生成を行った後は**必ずBSP側でビルドを実行すること**。  
+アプリ側のビルド内でBSPビルドが走ると、パスの扱いの違いからリンカ時に-msys_crt0のオプションでエラーが出ます。
+
+
 ドキュメント
 -----------
 - [Nios II Software Developer Handbook](https://www.intel.com/content/www/us/en/programmable/documentation/lro1419794938488.html)

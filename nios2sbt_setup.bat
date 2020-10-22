@@ -9,9 +9,12 @@ set SCRIPT_PATH=%~p0
 rem ***** WSL setup *****
 echo Setup WSL ...
 
+set _DRV=%SCRIPT_DRIVE:~0,1%
+for %%i in (a b c d e f g h i j k l m n o p q r s t u v w x y z) do call set _DRV=%%_DRV:%%i=%%i%%
 set _STR=%SCRIPT_PATH:~1,-1%
-set SH_NAME=/mnt/c/%_STR:\=/%/nios2sbt_setup.sh
-wsl %SH_NAME%
+set SH_NAME=/mnt/%_DRV%/%_STR:\=/%/nios2sbt_setup.sh
+
+wsl "%SH_NAME%"
 
 
 rem ***** Eclipse setup *****
@@ -36,12 +39,12 @@ if exist "%MARS2_PATH%\eclipse_nios2\" (
 )
 
 echo Downloading CDT package...
-powershell Invoke-WebRequest "%MARS2_URI%" -OutFile "%MARS2_NAME%"
+powershell Invoke-WebRequest '%MARS2_URI%' -OutFile '%MARS2_NAME%'
 
 echo Installing eclipse...
-powershell Expand-Archive -Path "%MARS2_NAME%" -DestinationPath "%MARS2_PATH%" -Force
+powershell Expand-Archive -Path '%MARS2_NAME%' -DestinationPath '%MARS2_PATH%' -Force
 rename "%MARS2_PATH%\eclipse" eclipse_nios2
-powershell Expand-Archive -Path "%PLUGINS_NAME%" -DestinationPath "%MARS2_PATH%" -Force
+powershell Expand-Archive -Path '%PLUGINS_NAME%' -DestinationPath '%MARS2_PATH%' -Force
 
 
 echo Installation finished.

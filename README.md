@@ -15,7 +15,7 @@ NiosII SBT 19.1以降のセットアップをサポートするバッチファ�
 2. WindowsのWSLを有効にして、Ubuntu 18.04TLSをインストールします。  
 [ここの手順](https://www.macnica.co.jp/business/semiconductor/articles/intel/133717/) の1と2（Ubuntuのインストールとアカウント作成）までを行います。
   
-3. Cドライブの適当な場所にフォルダを作成し、このリポジトリの `nios2sbt_setup.bat` `nios2sbt_setup.sh` をコピーします。
+3. 適当な場所にフォルダを作成し、このリポジトリの `nios2sbt_setup.bat` `nios2sbt_setup.sh` をコピーします。
   
 4. `nios2sbt_setup.bat` をダブルクリックしてセットアップを開始します。  
 WSL側のセットアップでパスワード入力を求められます。2.で作成したパスワードを入力してください。インストール完了後は3.で作成したフォルダは削除してかまいません。
@@ -43,7 +43,7 @@ BUILD_PRE_PROCESS :=
 BUILD_PRE_PROCESS := touch $(ELF).srec
 ```
 3. BSP生成を行った後は**必ずBSP側でビルドを実行すること**。  
-アプリ側のビルド内でBSPビルドが走ると、パスの扱いの違いからリンカ時に-msys_crt0のオプションでエラーが出ます。
+アプリ側のビルド内でBSPビルドが走ると、パスの扱いの違いからリンカ時に-msys-crt0のオプションでエラーが出ます。
 
 
 ドキュメント

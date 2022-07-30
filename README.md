@@ -1,9 +1,9 @@
-NiosII SBT Setup Tool
+NiosII EDS Setup Tool
 =====================
 
-NiosII SBT 19.1以降のセットアップをサポートするバッチファイルです。
+NiosII EDS 19.1以降のセットアップをサポートするバッチファイルです。
 以下の環境で確認しました。
-- Windows 10 Pro 64bit 1909
+- Windows 10 Pro 64bit 21H2
 - QuartusPrime 20.1LE
 
 
@@ -11,8 +11,8 @@ NiosII SBT 19.1以降のセットアップをサポートするバッチファ�
 -----
 1. QuartusPrimeをインストールします。  
 [IntelFPGAダウンロードセンター](https://www.intel.com/content/www/jp/ja/programmable/downloads/download-center.html)
-
-2. WindowsのWSLを有効にして、Ubuntu 18.04TLSをインストールします。  
+  
+2. WindowsのWSLを有効にして、Ubuntu 20.04TLSをインストールします。  
 [ここの手順](https://www.macnica.co.jp/business/semiconductor/articles/intel/133717/) の1と2（Ubuntuのインストールとアカウント作成）までを行います。
   
 3. 適当な場所にフォルダを作成し、このリポジトリの `nios2sbt_setup.bat` `nios2sbt_setup.sh` をコピーします。
@@ -29,8 +29,8 @@ PCに複数のバージョンをインストールしている場合は、実行
 
 SBTの不具合
 ----------
-2020年6月以降(?)のWindowsUpdateを適用した環境ではSBTのビルドが通らなくなる問題が確認されています。今のところ下記の修正で対策可能です。  
-**QuartusPrime 20.1.1で修正されました。** 以下の操作は20.1.1では不要です。  
+**QuartusPrime 20.1.1で修正されました。** 以下の操作は20.1.1以降では不要です。  
+19.1～20.1を2020年6月以降(?)のWindowsUpdateを適用した環境ではSBTのビルドが通らなくなる問題が確認されています。今のところ下記の修正で対策可能です。  
 
 1. アプリケーションフォルダのMakefileの326行付近
 ```
@@ -56,4 +56,4 @@ BUILD_PRE_PROCESS := touch $(ELF).srec
 ライセンス
 ---------
 [The MIT License (MIT)](https://opensource.org/licenses/MIT)  
-Copyright (c) 2020 J-7SYSTEM WORKS LIMITED.
+Copyright (c) 2020,2022 J-7SYSTEM WORKS LIMITED.

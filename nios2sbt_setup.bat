@@ -25,6 +25,9 @@ set MARS2_NAME=%SCRIPT_DRIVE%%SCRIPT_PATH%%MARS2_ZIP%
 set MARS2_PATH=%SOPC_KIT_NIOS2%\bin
 set PLUGINS_NAME=%MARS2_PATH%\eclipse_nios2_plugins.zip
 
+echo.
+echo Extract to target folder -^> %MARS2_PATH%
+
 if not exist "%PLUGINS_NAME%" (
     echo [!] The installed QuartusPrime version is different.
 	echo.
@@ -41,7 +44,7 @@ if exist "%MARS2_PATH%\eclipse_nios2\" (
 
 if not exist "%MARS2_NAME%" goto :zip_file_download
 
-set SCRIPT_TEMPLOG=%TEMP%\nios2sbt_setup_log%RANDOM%.tmp
+set SCRIPT_TEMPLOG=%SCRIPT_DRIVE%%SCRIPT_PATH%nios2sbt_setup_hash.log
 certutil -hashfile "%MARS2_NAME%" MD5>"%SCRIPT_TEMPLOG%"
 
 for /f "usebackq skip=1" %%i in ("%SCRIPT_TEMPLOG%") do (
@@ -50,8 +53,6 @@ for /f "usebackq skip=1" %%i in ("%SCRIPT_TEMPLOG%") do (
 )
 :break_loop
 del "%SCRIPT_TEMPLOG%"
-
-rem echo _HASH=%_HASH%
 if %_HASH% == %MARS2_ZIP_MD5% goto :zip_file_extract
 
 :zip_file_download
